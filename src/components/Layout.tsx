@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Truck, Package, Route, Map, LogOut, LayoutDashboard } from 'lucide-react';
+import { Truck, Package, Route, Map, LogOut, LayoutDashboard, MessageSquare } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -24,6 +24,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     { path: '/orders', label: 'Orders', icon: Package },
     { path: '/routes', label: 'Route Planning', icon: Route },
     { path: '/loads', label: 'Load Planning', icon: Map },
+    { path: '/messages', label: 'Driver Messages', icon: MessageSquare },
   ];
 
   return (

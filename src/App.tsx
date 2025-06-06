@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/Orders";
 import RoutePlanning from "./pages/RoutePlanning";
 import LoadPlanning from "./pages/LoadPlanning";
+import DriverMessages from "./pages/DriverMessages";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,11 @@ const App = () => (
             <Route path="/loads" element={
               <ProtectedRoute>
                 <LoadPlanning />
+              </ProtectedRoute>
+            } />
+            <Route path="/messages" element={
+              <ProtectedRoute>
+                <DriverMessages />
               </ProtectedRoute>
             } />
             <Route path="*" element={<NotFound />} />
