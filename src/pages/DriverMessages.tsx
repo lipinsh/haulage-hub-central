@@ -511,8 +511,7 @@ Load Number	Collection Site	Delivery Destination	Pallets Ordered	Driver	Vehicle	
                 </Button>
               </div>
             </CardContent>
-          </CardContent>
-        </Card>
+          </Card>
         )}
       </div>
     </Layout>
