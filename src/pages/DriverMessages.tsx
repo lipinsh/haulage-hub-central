@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Layout } from '../components/Layout';
 import { Button } from '@/components/ui/button';
@@ -203,6 +202,8 @@ const DriverMessages: React.FC = () => {
     
     const vehicle = loadData[0].vehicle;
     const trailer = loadData[0].trailer;
+    const isDoubleDeckerTrailer = trailer.toLowerCase().includes('dd');
+    
     const hasHitchUp = loadData.some(row => 
       row.notes && row.notes.toLowerCase().includes('hitch up')
     );
@@ -237,21 +238,23 @@ const DriverMessages: React.FC = () => {
     
     let todayText = '';
     if (todayCollections.length > 0) {
+      const processedToday = processCollectionsForDDTrailer(todayCollections, isDoubleDeckerTrailer);
       todayText = '\nToday please load from: \n' + 
-        todayCollections.map(row => 
+        processedToday.map(row => 
           `${row.collectionSite.replace(/^[^-]*-/, '')}  ${row.pallets}p  ${row.deliveryDest}`
         ).join('\n');
     }
     
     let tomorrowText = '';
     if (tomorrowCollections.length > 0) {
+      const processedTomorrow = processCollectionsForDDTrailer(tomorrowCollections, isDoubleDeckerTrailer);
       const earliestTime = Math.min(...tomorrowCollections.map(row => 
         timeToMinutes(row.timeFrom)
       ));
       const timeStr = minutesToTime(earliestTime);
       
       tomorrowText = `\n\nTomorrow, please be at your first collection site for ${timeStr}. Please plan your start time accordingly.\nCollections list:\n` + 
-        tomorrowCollections.map(row => 
+        processedTomorrow.map(row => 
           `${row.collectionSite.replace(/^[^-]*-/, '')}  ${row.pallets}p  ${row.deliveryDest}`
         ).join('\n');
     }
@@ -287,6 +290,40 @@ const DriverMessages: React.FC = () => {
     message += '\n\nOnce empty please give the office a call.\nPlease confirm.\nThank you.';
     
     return message;
+  };
+
+  const processCollectionsForDDTrailer = (collections: CollectionData[], isDoubleDeckerTrailer: boolean): CollectionData[] => {
+    if (!isDoubleDeckerTrailer) {
+      return collections;
+    }
+
+    // Transform NWF-Merston to NWF-Drayton for DD trailers
+    const transformedCollections = collections.map(row => {
+      if (row.collectionSite.includes('NWF-Merston')) {
+        return {
+          ...row,
+          collectionSite: row.collectionSite.replace('NWF-Merston', 'NWF-Drayton')
+        };
+      }
+      return row;
+    });
+
+    // Consolidate pallets for same delivery destination from NWF sites
+    const consolidatedMap = new Map<string, CollectionData>();
+    
+    transformedCollections.forEach(row => {
+      const isNWFSite = row.collectionSite.includes('NWF-Drayton');
+      const key = isNWFSite ? `${row.deliveryDest}-NWF` : `${row.collectionSite}-${row.deliveryDest}`;
+      
+      if (consolidatedMap.has(key)) {
+        const existing = consolidatedMap.get(key)!;
+        existing.pallets = String(parseInt(existing.pallets) + parseInt(row.pallets));
+      } else {
+        consolidatedMap.set(key, { ...row });
+      }
+    });
+
+    return Array.from(consolidatedMap.values());
   };
 
   const buildDeliveryRouting = (destinations: string[]): string => {
