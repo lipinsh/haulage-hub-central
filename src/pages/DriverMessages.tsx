@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Layout } from '../components/Layout';
+import { SimpleLayout } from '../components/SimpleLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -387,6 +387,10 @@ const DriverMessages: React.FC = () => {
       if (textarea) {
         textarea.value = text;
         handleCollectionData(text);
+        toast({
+          title: "Success",
+          description: "Data pasted and processed successfully",
+        });
       }
     } catch (error) {
       toast({
@@ -401,11 +405,11 @@ const DriverMessages: React.FC = () => {
     .sort((a, b) => parseInt(a) - parseInt(b));
 
   return (
-    <Layout>
+    <SimpleLayout>
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <MessageSquare className="h-8 w-8 text-orange-500" />
-          <h1 className="text-3xl font-bold text-gray-900">Driver Message Generator</h1>
+          <MessageSquare className="h-8 w-8 text-lime-500" />
+          <h1 className="text-3xl font-bold text-gray-900">Morrisons & Aldi Messages Generator</h1>
         </div>
         <p className="text-gray-600">Upload fuel pin data and generate driver messages from collection plans</p>
 
@@ -456,7 +460,7 @@ const DriverMessages: React.FC = () => {
             <p className="text-gray-600 mb-4">Copy and paste your collection plan data from Excel (including headers)</p>
             <Button 
               onClick={pasteFromClipboard} 
-              className="mb-4"
+              className="mb-4 bg-lime-500 hover:bg-lime-600"
               variant="outline"
             >
               📋 Quick Paste from Clipboard
@@ -518,7 +522,7 @@ Load Number	Collection Site	Delivery Destination	Pallets Ordered	Driver	Vehicle	
             <Button 
               onClick={generateMessage}
               disabled={Object.keys(fuelPinData).length === 0 || collectionData.length === 0}
-              className="bg-green-600 hover:bg-green-700"
+              className="bg-lime-600 hover:bg-lime-700"
             >
               Generate Message
             </Button>
@@ -541,7 +545,7 @@ Load Number	Collection Site	Delivery Destination	Pallets Ordered	Driver	Vehicle	
               <div className="text-center mt-4">
                 <Button 
                   onClick={copyMessage}
-                  className="bg-orange-600 hover:bg-orange-700"
+                  className="bg-lime-600 hover:bg-lime-700"
                 >
                   {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
                   {copied ? 'Copied!' : 'Copy Message'}
@@ -551,7 +555,7 @@ Load Number	Collection Site	Delivery Destination	Pallets Ordered	Driver	Vehicle	
           </Card>
         )}
       </div>
-    </Layout>
+    </SimpleLayout>
   );
 };
 

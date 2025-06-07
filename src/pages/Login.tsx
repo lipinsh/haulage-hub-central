@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Truck, AlertCircle } from 'lucide-react';
+import { Truck } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
       if (success) {
         toast({
           title: "Login successful",
-          description: "Welcome to HaulTrack Pro",
+          description: "Welcome back",
         });
         navigate('/');
       } else {
@@ -56,12 +56,12 @@ const Login = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="bg-orange-500 p-3 rounded-full">
+            <div className="bg-lime-500 p-3 rounded-full">
               <Truck className="h-8 w-8 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">HaulTrack Pro</CardTitle>
-          <CardDescription>Access your transport management system</CardDescription>
+          <CardTitle className="text-2xl font-bold text-black">Login</CardTitle>
+          <CardDescription>Access your message generator</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -87,22 +87,10 @@ const Login = () => {
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-lime-500 hover:bg-lime-600" disabled={isLoading}>
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
-          
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <div className="flex items-center space-x-2 text-blue-700 mb-2">
-              <AlertCircle className="h-4 w-4" />
-              <span className="font-medium">Demo Credentials:</span>
-            </div>
-            <div className="text-sm text-blue-600 space-y-1">
-              <p>Admin: admin / admin123</p>
-              <p>Dispatcher: dispatcher / dispatch123</p>
-              <p>Driver: driver / driver123</p>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </div>

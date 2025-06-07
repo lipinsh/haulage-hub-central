@@ -7,11 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Orders from "./pages/Orders";
-import RoutePlanning from "./pages/RoutePlanning";
-import LoadPlanning from "./pages/LoadPlanning";
 import DriverMessages from "./pages/DriverMessages";
+import UserManagement from "./pages/UserManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,27 +24,12 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/" element={
               <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/orders" element={
-              <ProtectedRoute>
-                <Orders />
-              </ProtectedRoute>
-            } />
-            <Route path="/routes" element={
-              <ProtectedRoute>
-                <RoutePlanning />
-              </ProtectedRoute>
-            } />
-            <Route path="/loads" element={
-              <ProtectedRoute>
-                <LoadPlanning />
-              </ProtectedRoute>
-            } />
-            <Route path="/messages" element={
-              <ProtectedRoute>
                 <DriverMessages />
+              </ProtectedRoute>
+            } />
+            <Route path="/users" element={
+              <ProtectedRoute>
+                <UserManagement />
               </ProtectedRoute>
             } />
             <Route path="*" element={<NotFound />} />
