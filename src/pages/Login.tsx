@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Truck } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -61,7 +61,6 @@ const Login = () => {
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-black">Login</CardTitle>
-          <CardDescription>Access your message generator</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
