@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Truck, LogOut, Users, MessageSquare } from 'lucide-react';
+import { Truck, LogOut, Users } from 'lucide-react';
 
 interface SimpleLayoutProps {
   children: React.ReactNode;
@@ -23,20 +23,14 @@ export const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
       {/* Header */}
       <header className="bg-slate-900 text-white shadow-lg">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
+          <div 
+            className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate('/')}
+          >
             <Truck className="h-8 w-8 text-lime-500" />
             <h1 className="text-xl font-bold text-lime-500">Messages Generator</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/')}
-              className="text-slate-900 bg-white border-white hover:bg-gray-100 hover:text-slate-900"
-            >
-              <MessageSquare className="h-4 w-4 mr-2" />
-              Message Generator
-            </Button>
             {user?.role === 'admin' && (
               <Button
                 variant="outline"
